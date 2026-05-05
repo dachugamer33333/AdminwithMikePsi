@@ -1,4 +1,4 @@
-package fes.aragon.unam.administracion;
+package fes.aragon.unam.administracion.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

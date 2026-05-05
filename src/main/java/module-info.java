@@ -1,8 +1,11 @@
 module fes.aragon.unam.administracion {
     requires javafx.controls;
     requires javafx.fxml;
+    requires static lombok;
 
 
-    opens fes.aragon.unam.administracion to javafx.fxml;
-    exports fes.aragon.unam.administracion;
+    opens fes.aragon.unam.administracion to javafx.fxml, javafx.graphics;
+    opens fes.aragon.unam.administracion.controller to javafx.fxml, javafx.graphics;
+
+
 }
