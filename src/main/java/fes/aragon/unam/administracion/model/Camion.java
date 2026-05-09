@@ -4,35 +4,51 @@ import java.util.ArrayList;
 
 public class Camion {
     private  String numPlaca;
-    private ArrayList<Caja> cajas;
-    private ArrayList<Zona> zonas;
+    private ArrayList<Caja> cajas = new ArrayList<>();
+    private ArrayList<Zona> zonas = new ArrayList<>();
     private Trabajador trabajador;
     private double ventasTotales;
 
-    public void agregarCaja()
+    public void agregarCaja(Caja caja)
     {
+      for (Caja cajalocal : cajas)
+      {
+          if(cajalocal.getTipo().equals(caja.getTipo()))
+          {
+              return;
+          }
+
+      }
+        cajas.add(caja);
+
+
 
     }
 
-    public void agregarZona()
+    public void agregarZona(Zona zona)
+    {
+        zonas.add(zona);
+    }
+    public void descargarCaja(int id)
+    {
+        zonas.remove(id);
+    }
+    public void asignarConductor(Trabajador trabajador)
+    {
+        this.trabajador=trabajador;
+    }
+    public void calcularVentasTotales()
     {
 
-    }
-    public void descargarCaja()
-    {
-
-    }
-    public void asignarConductor()
-    {
-
-    }
-    public double calcularVentasTotales()
-    {
-    return 0.0;
+        for(Caja caja : cajas)
+        {
+            this.ventasTotales+=caja.getTotalRefresco();
+        }
     }
     public int getTotalCajas()
     {
-        return  1;
+
+        return 0;
     }
 
 }

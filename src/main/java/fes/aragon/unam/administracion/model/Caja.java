@@ -7,6 +7,7 @@ public class Caja {
     private int id;
     private Producto tipo;
     private int totalRefresco;
+    private int sizeCaja;
 
     public Caja(Producto tipo, int totalRefresco) {
         this.tipo = tipo;
