@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.TextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f1f3fa;" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutX="8.0" layoutY="82.0" prefHeight="318.0" prefWidth="427.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <ComboBox layoutX="10.0" layoutY="27.0" prefHeight="25.0" prefWidth="152.0" promptText="Mostrar 10 registros">
+                     <effect>
+                        <InnerShadow>
+                           <color>
+                              <Color red="0.12670564651489258" green="0.22004547715187073" blue="0.34210526943206787" />
+                           </color>
+                        </InnerShadow>
+                     </effect></ComboBox>
+                  <TextField fx:id="bscBuscador" layoutX="262.0" layoutY="21.0" promptText="Buscar ..." />
+                  <AnchorPane layoutX="11.0" layoutY="60.0" prefHeight="4.0" prefWidth="395.0" style="-fx-background-color: #d6d8db;" />
+                  <Button fx:id="btnAgregar" layoutX="327.0" layoutY="72.0" mnemonicParsing="false" onAction="#agregarATabla" style="-fx-background-color: #005995;" text="Agregar" textFill="WHITE">
+                     <font>
+                        <Font name="Noto Sans Anatolian Hieroglyphs Regular" size="24.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
+                     </graphic>
+                  </Button>
+                  <FontAwesomeIconView fill="#d6d8db" glyphName="SEARCH" layoutX="242.0" layoutY="39.0" selectionFill="#d6d8db" />
+               </children>
+            </AnchorPane>
+            <TableView fx:id="tabla" editable="true" layoutX="18.0" layoutY="189.0" onSort="#Tabla" prefHeight="158.0" prefWidth="395.0">
+              <columns>
+                <TableColumn fx:id="id" editable="false" prefWidth="42.0" sortable="false" text="ID" />
+                <TableColumn fx:id="conductor" prefWidth="89.5" text="Conductor" />
+                  <TableColumn fx:id="zona" prefWidth="62.499969482421875" text="Zona" />
+                  <TableColumn fx:id="matricula" prefWidth="75.0" text="Matricula" />
+                  <TableColumn fx:id="cajas" prefWidth="45.5" text="Cajas" />
+                  <TableColumn fx:id="acciones" prefWidth="157.50003051757812" text="Acciones" />
+              </columns>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </TableView>
+            <ImageView disable="true" fitHeight="72.0" fitWidth="126.0" layoutX="14.0" layoutY="19.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <image>
+                  <Image url="@Pepsi-Logo.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="10.0" prefHeight="27.0" prefWidth="427.0" style="-fx-background-color: #ffffff;" />
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="154.0" style="-fx-background-color: #313a46;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnDashboard" alignment="CENTER" layoutY="100.0" mnemonicParsing="false" onAction="#dashboard" prefHeight="30.0" prefWidth="153.0" style="-fx-background-color: #313a46;" text="Dashboard" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="HOME" />
+               </graphic></Button>
+            <Button fx:id="btnEmpleados" alignment="CENTER" layoutY="136.0" mnemonicParsing="false" onAction="#conductor" prefHeight="30.0" prefWidth="153.0" style="-fx-background-color: #313a46;" text="Empleados" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="TRUCK" selectionStart="1" />
+               </graphic></Button>
+            <Button fx:id="btnProductos" alignment="CENTER" layoutY="172.0" mnemonicParsing="false" onAction="#productos" prefHeight="30.0" prefWidth="153.0" style="-fx-background-color: #313a46;" text="Productos" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CUBES" />
+               </graphic></Button>
+            <Button fx:id="btnZonas" alignment="CENTER" layoutY="208.0" mnemonicParsing="false" onAction="#zonas" prefHeight="30.0" prefWidth="153.0" style="-fx-background-color: #313a46;" text="Zonas" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="MAP_MARKER" />
+               </graphic></Button>
+            <Button fx:id="btnSalir" layoutY="316.0" mnemonicParsing="false" onAction="#salir" prefHeight="30.0" prefWidth="153.0" style="-fx-background-color: #313a46;" text="Salir" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" />
+               </graphic></Button>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>
