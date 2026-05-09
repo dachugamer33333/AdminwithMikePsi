@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="389.0" layoutY="105.0" text="Estatus">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtIdEmpleado" layoutX="497.0" layoutY="67.0" prefHeight="26.0" prefWidth="84.0" />
+      <Label layoutX="389.0" layoutY="74.0" text="ID Empleado">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="389.0" layoutY="135.0" text="Nombre">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNombre" layoutX="389.0" layoutY="155.0" prefHeight="26.0" prefWidth="189.0" />
+      <Label layoutX="389.0" layoutY="185.0" prefHeight="20.0" prefWidth="118.0" text="Apellido" wrapText="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtApellido" layoutX="389.0" layoutY="210.0" prefHeight="26.0" prefWidth="189.0" />
+      <Button fx:id="btnEstado" layoutX="497.0" layoutY="102.0" mnemonicParsing="false" onAction="#cambiarEstado" prefHeight="24.0" prefWidth="84.0" text="Inactivo" textFill="#e11e1e">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <AnchorPane layoutX="432.0" layoutY="233.0" prefHeight="120.0" prefWidth="100.0">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="10.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="btnSubirFoto" layoutX="1.0" layoutY="120.0" mnemonicParsing="false" onAction="#subirFoto" prefHeight="26.0" prefWidth="119.0" text="Subir Foto" />
+         </children>
+      </AnchorPane>
+      <Button fx:id="btnLimpiar" layoutX="302.0" layoutY="345.0" mnemonicParsing="false" onAction="#limpiar" prefHeight="32.0" prefWidth="73.0" style="-fx-background-color: #51AAC6;" text="Limpiar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnAnadir" layoutX="221.0" layoutY="345.0" mnemonicParsing="false" onAction="#anadir" prefHeight="32.0" prefWidth="73.0" style="-fx-background-color: #005995;" text="Añadir" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tablaEmpleado" layoutX="30.0" layoutY="70.0" prefHeight="255.0" prefWidth="345.0">
+        <columns>
+          <TableColumn prefWidth="56.33332824707031" text="ID" />
+          <TableColumn prefWidth="93.66665649414062" text="Nombre" />
+            <TableColumn prefWidth="103.33331298828125" text="Apellido" />
+            <TableColumn prefWidth="93.33334350585938" text="Estatus" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnActualizar" layoutX="30.0" layoutY="345.0" mnemonicParsing="false" onAction="#actualizar" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #51C68E;" text="Actualizar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnBorrar" layoutX="139.0" layoutY="345.0" mnemonicParsing="false" onAction="#borrar" prefHeight="32.0" prefWidth="73.0" style="-fx-background-color: #FF1436;" text="Borrar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <AnchorPane layoutX="-2.0" prefHeight="55.0" prefWidth="602.0" style="-fx-background-color: #313A46;">
+         <children>
+            <Label alignment="CENTER" layoutX="2.0" layoutY="9.0" prefHeight="36.0" prefWidth="600.0" text="Registro de empleados" textAlignment="RIGHT" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
