@@ -8,6 +8,12 @@
     <artifactId>Administracion</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Administracion</name>
+    <repositories>
+        <repository>
+            <id>gluon</id>
+            <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,6 +21,12 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-fontawesome</artifactId>
+            <version>4.7.0-9.1.2</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

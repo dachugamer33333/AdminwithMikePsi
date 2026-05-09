@@ -8,6 +8,7 @@ public class Trabajador {
     private String nombre;
     private String ap;
     private String fotoEmpleado;
+    private boolean isActive;
 
     public Trabajador(String nombre, String ap) {
         this.nombre = nombre;
