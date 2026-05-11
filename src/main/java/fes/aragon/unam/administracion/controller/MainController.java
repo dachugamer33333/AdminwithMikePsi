@@ -12,8 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    @FXML
-    private TableColumn<?, ?> acciones;
+
 
     @FXML
     private TextField bscBuscador;
@@ -27,7 +26,6 @@ public class MainController implements Initializable {
     @FXML
     private Button btnTrabajador;
 
-
     @FXML
     private Button btnProductos;
 
@@ -40,23 +38,7 @@ public class MainController implements Initializable {
     @FXML
     private Button btnZonas;
 
-    @FXML
-    private TableColumn<?, ?> cajas;
 
-    @FXML
-    private TableColumn<?, ?> conductor;
-
-    @FXML
-    private TableColumn<?, ?> id;
-
-    @FXML
-    private TableColumn<?, ?> matricula;
-
-    @FXML
-    private TableView<?> tabla;
-
-    @FXML
-    private TableColumn<?, ?> zona;
 
     private void cargarVista(String fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
@@ -89,7 +71,8 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void dashboard(ActionEvent event) {
+    void dashboard(ActionEvent event) throws IOException{
+        cargarVista ("/fes/aragon/unam/administracion/main-view.fxml");
 
     }
 
@@ -111,6 +94,11 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            cargarVista ("/fes/aragon/unam/administracion/main-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

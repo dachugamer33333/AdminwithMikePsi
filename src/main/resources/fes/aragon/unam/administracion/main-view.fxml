@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fes.aragon.unam.administracion.controller.MainController">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Pepsi">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Camiones">
-            <items>
-              <MenuItem fx:id="AgregarCamion" mnemonicParsing="false" onAction="#irCamiones" text="Agregar" />
-                  <MenuItem fx:id="buscarCamion" mnemonicParsing="false" text="Buscar" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Zonas">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Agregar" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Productos">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <center>
-      <AnchorPane fx:id="contenedor" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
-</BorderPane>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fes.aragon.unam.administracion.controller.MainViewController">
+   <children>
+      <AnchorPane prefHeight="4.0" prefWidth="395.0" style="-fx-background-color: #d6d8db;" />
+      <TableView fx:id="tabla" editable="true" layoutX="28.0" layoutY="148.0" prefHeight="231.0" prefWidth="536.0">
+         <columns>
+            <TableColumn fx:id="id" editable="false" prefWidth="42.0" sortable="false" text="ID" />
+            <TableColumn fx:id="conductor" prefWidth="89.5" text="Conductor" />
+            <TableColumn fx:id="zona" prefWidth="62.499969482421875" text="Zona" />
+            <TableColumn fx:id="matricula" prefWidth="102.0" text="Matricula" />
+            <TableColumn fx:id="cajas" prefWidth="70.0" text="Cajas" />
+            <TableColumn fx:id="acciones" prefWidth="168.0" text="Acciones" />
+         </columns>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </TableView>
+      <ImageView disable="true" fitHeight="95.0" fitWidth="154.0" layoutX="28.0" layoutY="14.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" smooth="false">
+         <image>
+            <Image url="@Pepsi-Logo.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="bscBuscador" layoutX="26.0" layoutY="106.0" promptText="Buscar ..." />
+      <Button fx:id="btnAgregar" layoutX="436.0" layoutY="91.0" mnemonicParsing="false" onAction="#agregaraTabla" prefHeight="13.0" prefWidth="128.0" style="-fx-background-color: #005995;" text="Agregar" textFill="WHITE">
+         <font>
+            <Font name="Noto Sans Anatolian Hieroglyphs Regular" size="18.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
