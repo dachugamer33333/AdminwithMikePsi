@@ -38,6 +38,9 @@ public class MainController {
     void irCamiones(ActionEvent event) throws IOException {
         cargarVista("/fes/aragon/unam/administracion/camion-view.fxml");
     }
-
+    @FXML
+    void irZonas(ActionEvent event) throws IOException {
+        cargarVista("/fes/aragon/unam/administracion/zonas-view.fxml");
+    }
 
 }
