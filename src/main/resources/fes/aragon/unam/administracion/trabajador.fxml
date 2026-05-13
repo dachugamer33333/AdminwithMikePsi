@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fes.aragon.unam.administracion.controller.TrabajadorController">
+<AnchorPane prefHeight="400.0" prefWidth="646.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fes.aragon.unam.administracion.controller.TrabajadorController">
    <children>
       <Label layoutX="389.0" layoutY="105.0" text="Estatus">
          <font>
@@ -75,7 +75,7 @@
       </Button>
       <AnchorPane layoutX="-2.0" prefHeight="55.0" prefWidth="602.0" style="-fx-background-color: #313A46;">
          <children>
-            <Label alignment="CENTER" layoutX="2.0" layoutY="9.0" prefHeight="36.0" prefWidth="600.0" text="Registro de Trabajadores" textAlignment="RIGHT" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="2.0" layoutY="9.0" prefHeight="36.0" prefWidth="646.0" text="Registro de Trabajadores" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>

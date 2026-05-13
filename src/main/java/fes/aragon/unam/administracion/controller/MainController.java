@@ -87,8 +87,8 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void zonas(ActionEvent event) {
-
+    void zonas(ActionEvent event) throws IOException {
+        cargarVista ("/fes/aragon/unam/administracion/zonas-view.fxml");
     }
 
 

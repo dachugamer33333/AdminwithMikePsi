@@ -112,7 +112,7 @@ public class TrabajadorController implements Initializable {
     }
 
     private boolean validar() {
-
+        return true;
     }
 
     @FXML
