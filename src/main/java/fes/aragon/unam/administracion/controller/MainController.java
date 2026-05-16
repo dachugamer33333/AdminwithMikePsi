@@ -3,13 +3,16 @@ package fes.aragon.unam.administracion.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
 
     @FXML
     private AnchorPane contenedor;
@@ -50,5 +53,14 @@ public class MainController {
     void salir(ActionEvent event) {
         Stage stage = (Stage) contenedor.getScene().getWindow();
         stage.close();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            cargarVista("/fes/aragon/unam/administracion/main-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
