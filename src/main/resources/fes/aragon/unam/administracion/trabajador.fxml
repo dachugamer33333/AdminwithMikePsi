@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -11,76 +12,78 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fes.aragon.unam.administracion.controller.TrabajadorController">
    <children>
-      <Label layoutX="389.0" layoutY="105.0" text="Estatus">
+      <Label layoutX="539.0" layoutY="74.0" text="Estatus">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txtIdEmpleado" layoutX="497.0" layoutY="67.0" prefHeight="26.0" prefWidth="84.0" />
-      <Label layoutX="389.0" layoutY="74.0" text="ID Trabajador">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="389.0" layoutY="135.0" text="Nombre">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtNombre" layoutX="389.0" layoutY="155.0" prefHeight="26.0" prefWidth="189.0" />
-      <Label layoutX="389.0" layoutY="185.0" prefHeight="20.0" prefWidth="118.0" text="Apellido" wrapText="true">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtApellido" layoutX="389.0" layoutY="210.0" prefHeight="26.0" prefWidth="189.0" />
-      <Button fx:id="btnEstado" layoutX="497.0" layoutY="102.0" mnemonicParsing="false" onAction="#cambiarEstado" prefHeight="24.0" prefWidth="84.0" text="Inactivo" textFill="#e11e1e">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
-      <AnchorPane layoutX="432.0" layoutY="233.0" prefHeight="120.0" prefWidth="100.0">
+      <AnchorPane layoutX="461.0" layoutY="251.0" prefHeight="120.0" prefWidth="122.0">
          <children>
-            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="10.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgTrabajador" fitHeight="111.0" fitWidth="125.0" layoutX="-3.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="btnSubirFoto" layoutX="1.0" layoutY="120.0" mnemonicParsing="false" onAction="#subirFoto" prefHeight="26.0" prefWidth="119.0" text="Subir Foto" />
          </children>
       </AnchorPane>
-      <Button fx:id="btnLimpiar" layoutX="302.0" layoutY="345.0" mnemonicParsing="false" onAction="#limpiar" prefHeight="32.0" prefWidth="73.0" style="-fx-background-color: #51AAC6;" text="Limpiar" textFill="WHITE">
+      <TextField fx:id="txtIdEmpleado" layoutX="413.0" layoutY="99.0" prefHeight="25.0" prefWidth="90.0" />
+      <Label layoutX="413.0" layoutY="74.0" text="ID">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="413.0" layoutY="134.0" text="Nombre">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNombre" layoutX="413.0" layoutY="159.0" prefHeight="25.0" prefWidth="220.0" />
+      <Label layoutX="413.0" layoutY="189.0" prefHeight="20.0" prefWidth="118.0" text="Apellido" wrapText="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtApellido" layoutX="415.0" layoutY="216.0" prefHeight="26.0" prefWidth="220.0" />
+      <Button fx:id="btnEstado" layoutX="539.0" layoutY="99.0" mnemonicParsing="false" onAction="#cambiarEstado" prefHeight="25.0" prefWidth="75.0" text="Inactivo" textFill="#e11e1e">
+         <font>
+            <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="btnAnadir" layoutX="221.0" layoutY="345.0" mnemonicParsing="false" onAction="#anadir" prefHeight="32.0" prefWidth="73.0" style="-fx-background-color: #005995;" text="Añadir" textFill="WHITE">
+      <Button fx:id="btnLimpiar" layoutX="537.0" layoutY="410.0" mnemonicParsing="false" onAction="#limpiar" prefHeight="30.0" prefWidth="95.0" style="-fx-background-color: #51AAC6;" text="Limpiar" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <TableView fx:id="tablaEmpleado" layoutX="30.0" layoutY="70.0" prefHeight="255.0" prefWidth="345.0">
+      <Button fx:id="btnAnadir" layoutX="415.0" layoutY="410.0" mnemonicParsing="false" onAction="#anadir" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #005995;" text="Agregar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
+         </graphic>
+      </Button>
+      <TableView fx:id="tblTrabajadores" layoutX="15.0" layoutY="71.0" prefHeight="423.0" prefWidth="385.0">
         <columns>
-          <TableColumn fx:id="clmId" prefWidth="56.33332824707031" text="ID" />
-          <TableColumn fx:id="clmNombre" prefWidth="93.66665649414062" text="Nombre" />
-            <TableColumn fx:id="clmApellido" prefWidth="103.33331298828125" text="Apellido" />
-            <TableColumn fx:id="clmEstatus" prefWidth="93.33334350585938" text="Estatus" />
+          <TableColumn fx:id="clmId" prefWidth="45.0" text="ID" />
+          <TableColumn fx:id="clmNombre" prefWidth="90.0" text="Nombre" />
+            <TableColumn fx:id="clmApellido" prefWidth="100.5" text="Apellido" />
+            <TableColumn fx:id="clmEstatus" prefWidth="80.5" text="Estatus" />
+            <TableColumn fx:id="clmAcciones" prefWidth="69.0" text="Acciones" />
         </columns>
       </TableView>
-      <Button fx:id="btnActualizar" layoutX="30.0" layoutY="345.0" mnemonicParsing="false" onAction="#actualizar" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #51C68E;" text="Actualizar" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnBorrar" layoutX="139.0" layoutY="345.0" mnemonicParsing="false" onAction="#borrar" prefHeight="32.0" prefWidth="73.0" style="-fx-background-color: #FF1436;" text="Borrar" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
-      <AnchorPane layoutX="-2.0" prefHeight="55.0" prefWidth="602.0" style="-fx-background-color: #313A46;">
+      <AnchorPane layoutX="-2.0" prefHeight="55.0" prefWidth="650.0" style="-fx-background-color: #313A46;">
          <children>
-            <Label alignment="CENTER" layoutX="2.0" layoutY="9.0" prefHeight="36.0" prefWidth="600.0" text="Registro de Trabajadores" textAlignment="RIGHT" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="134.0" layoutY="10.0" prefHeight="36.0" prefWidth="392.0" text="Registro de Trabajadores" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
+      <Button fx:id="btnGuardarCambios" layoutX="414.0" layoutY="450.0" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="30.0" prefWidth="218.0" style="-fx-background-color: #3EC843;" text="Guardar Cambios" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" />
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
