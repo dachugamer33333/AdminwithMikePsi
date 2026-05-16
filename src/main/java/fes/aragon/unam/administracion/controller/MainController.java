@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -84,7 +85,17 @@ public class MainController implements Initializable {
 
     @FXML
     void salir(ActionEvent event) {
-        Platform.exit();
+        Alert alertaConfirmacion= new Alert(Alert.AlertType.CONFIRMATION);
+        alertaConfirmacion.setTitle("Alerta de confirmacion");
+        alertaConfirmacion.setHeaderText(null);
+        alertaConfirmacion.setContentText("¿Estas seguro de abandonar el programa?");
+        Optional<ButtonType> resultado = alertaConfirmacion.showAndWait();
+
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            Platform.exit();
+
+        }
+
     }
 
     @FXML
@@ -102,4 +113,5 @@ public class MainController implements Initializable {
         }
 
     }
+
 }
