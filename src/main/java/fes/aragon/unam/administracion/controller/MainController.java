@@ -1,5 +1,6 @@
 package fes.aragon.unam.administracion.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
@@ -83,7 +84,7 @@ public class MainController implements Initializable {
 
     @FXML
     void salir(ActionEvent event) {
-
+        Platform.exit();
     }
 
     @FXML
