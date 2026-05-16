@@ -27,7 +27,7 @@ public class ZonasAgregarController {
     @FXML
     public void initialize() {
         cmbDepartamento.setItems(
-                FXCollections.observableArrayList(Zona.getDepartamentos()));
+                FXCollections.observableArrayList(gestor.getDepartamentos()));
     }
 
     public void setZona(Zona zona) {
