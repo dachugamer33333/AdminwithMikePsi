@@ -11,18 +11,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fes.aragon.unam.administracion.controller.MainViewController">
    <children>
       <AnchorPane prefHeight="4.0" prefWidth="395.0" style="-fx-background-color: #d6d8db;" />
       <TableView fx:id="tabla" editable="true" layoutX="28.0" layoutY="148.0" prefHeight="231.0" prefWidth="536.0">
          <columns>
-            <TableColumn fx:id="id" editable="false" prefWidth="42.0" sortable="false" text="ID" />
-            <TableColumn fx:id="conductor" prefWidth="89.5" text="Conductor" />
-            <TableColumn fx:id="zona" prefWidth="62.499969482421875" text="Zona" />
-            <TableColumn fx:id="matricula" prefWidth="102.0" text="Matricula" />
-            <TableColumn fx:id="cajas" prefWidth="70.0" text="Cajas" />
-            <TableColumn fx:id="acciones" prefWidth="168.0" text="Acciones" />
+            <TableColumn fx:id="colId" editable="false" prefWidth="42.0" sortable="false" text="ID" />
+            <TableColumn fx:id="colConductor" prefWidth="89.5" text="Conductor" />
+            <TableColumn fx:id="colZona" prefWidth="62.499969482421875" text="Zona" />
+            <TableColumn fx:id="colMatricula" prefWidth="102.0" text="Matricula" />
+            <TableColumn fx:id="colCajas" prefWidth="70.0" text="Cajas" />
+            <TableColumn fx:id="colAcciones" prefWidth="168.0" text="Acciones" />
          </columns>
          <effect>
             <InnerShadow />

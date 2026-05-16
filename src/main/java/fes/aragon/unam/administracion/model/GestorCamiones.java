@@ -1,21 +1,16 @@
 package fes.aragon.unam.administracion.model;
 
+import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GestorCamiones {
-    // 1. Atributo estático de la instancia única
     private static GestorCamiones instancia;
-
-    // 2. La lista vive aquí, protegida
     private ArrayList<Camion> listaCamiones;
 
-    // 3. El constructor inicializa la lista UNA SOLA VEZ
     private GestorCamiones() {
-        this.listaCamiones = new ArrayList<>();
+        this.listaCamiones = leerDeArchivo();
     }
 
-    // 4. Método de acceso global
     public static GestorCamiones getInstance() {
         if (instancia == null) {
             instancia = new GestorCamiones();
@@ -23,12 +18,75 @@ public class GestorCamiones {
         return instancia;
     }
 
-    // Métodos de control (La lógica de negocio)
     public void agregarCamion(Camion camion) {
         this.listaCamiones.add(camion);
+        guardarEnArchivo(listaCamiones);
     }
 
     public ArrayList<Camion> obtenerTodos() {
         return this.listaCamiones;
+    }
+
+    public void eliminarCamion(int id) {
+        listaCamiones.removeIf(c -> c.getId() == id);
+        guardarEnArchivo(listaCamiones);
+    }
+
+    public Camion buscarPorId(int id) {
+        for (Camion c : listaCamiones) {
+            if (c.getId() == id) return c;
+        }
+        return null;
+    }
+
+    public int generarId() {
+        int max = 0;
+        for (Camion c : listaCamiones) {
+            if (c.getId() > max) max = c.getId();
+        }
+        return max + 1;
+    }
+
+    private ArrayList<Camion> leerDeArchivo() {
+        ArrayList<Camion> camiones = new ArrayList<>();
+        File archivo = new File(System.getProperty("user.dir") + "/datos/camiones.txt");
+
+        if (!archivo.exists()) {
+            return camiones;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                linea = linea.trim();
+                if (linea.isEmpty()) continue;
+
+                String[] partes = linea.split(",", -1);
+                if (partes.length >= 2) {
+                    int id = Integer.parseInt(partes[0].trim());
+                    String matricula = partes[1].trim();
+                    camiones.add(new Camion(id, matricula));
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error leyendo camiones.txt: " + e.getMessage());
+        }
+
+        return camiones;
+    }
+
+    private void guardarEnArchivo(ArrayList<Camion> camiones) {
+        File carpeta = new File(System.getProperty("user.dir") + "/datos");
+        if (!carpeta.exists()) carpeta.mkdirs();
+
+        File archivo = new File(carpeta, "camiones.txt");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
+            for (Camion c : camiones) {
+                bw.write(c.getId() + "," + c.getMatricula());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error guardando camiones.txt: " + e.getMessage());
+        }
     }
 }
