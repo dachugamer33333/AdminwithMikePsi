@@ -32,6 +32,7 @@ public class MainController implements Initializable {
     @FXML
     void dashboard(ActionEvent event) throws IOException {
         // aquí puedes cargar una vista de dashboard cuando la tengas
+        cargarVista("/fes/aragon/unam/administracion/main-view.fxml");
     }
     @FXML
     void irTrabajador(ActionEvent event) throws IOException {
