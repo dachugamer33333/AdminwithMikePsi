@@ -21,8 +21,11 @@ public class MainController {
     @FXML
     private AnchorPane contenedor;
 
+    @FXML
+    private MenuItem irProductos;
+
     private void cargarVista(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fes/aragon/unam/administracion/productos-view.fxml"));
         Parent vista = loader.load();
         contenedor.getChildren().clear();
         contenedor.getChildren().add(vista);
@@ -37,6 +40,10 @@ public class MainController {
     @FXML
     void irCamiones(ActionEvent event) throws IOException {
         cargarVista("/fes/aragon/unam/administracion/camion-view.fxml");
+    }
+    @FXML
+    void irProductos(ActionEvent event) throws IOException {
+        cargarVista("/fes/aragon/unam/administracion/productos-view.fxml");
     }
 
 

@@ -27,9 +27,9 @@
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Productos">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
+                <items>
+                    <MenuItem fx:id="irProductos" mnemonicParsing="false" text="Ver Productos" onAction="#irProductos" />
+                </items>
             </Menu>
         </menus>
       </MenuBar>
