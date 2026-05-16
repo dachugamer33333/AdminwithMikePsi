@@ -22,4 +22,4 @@
 23,Tacna,23001,,ACTIVA
 24,Tumbes,24001,,ACTIVA
 25,Ucayali,25001,,ACTIVA
-26,Áncash,76352,pene,ACTIVA
+26,Áncash,76352,fokit,BLOQUEADA
