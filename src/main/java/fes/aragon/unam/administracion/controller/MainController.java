@@ -1,36 +1,25 @@
 package fes.aragon.unam.administracion.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class MainController {
-    @FXML
-    private MenuItem AgregarCamion;
-
-    @FXML
-    private MenuItem buscarCamion;
 
     @FXML
     private AnchorPane contenedor;
 
-    @FXML
-    private MenuItem irProductos;
-
     private void cargarVista(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fes/aragon/unam/administracion/productos-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
         Parent vista = loader.load();
         contenedor.getChildren().clear();
         contenedor.getChildren().add(vista);
 
-        // que la vista ocupe todo el AnchorPane
         AnchorPane.setTopAnchor(vista, 0.0);
         AnchorPane.setBottomAnchor(vista, 0.0);
         AnchorPane.setLeftAnchor(vista, 0.0);
@@ -38,13 +27,28 @@ public class MainController {
     }
 
     @FXML
-    void irCamiones(ActionEvent event) throws IOException {
-        cargarVista("/fes/aragon/unam/administracion/camion-view.fxml");
+    void dashboard(ActionEvent event) throws IOException {
+        // aquí puedes cargar una vista de dashboard cuando la tengas
     }
     @FXML
-    void irProductos(ActionEvent event) throws IOException {
-        cargarVista("/fes/aragon/unam/administracion/productos-view.fxml");
+    void irTrabajador(ActionEvent event) throws IOException {
+        cargarVista("/fes/aragon/unam/administracion/trabajador.fxml");
     }
 
 
+    @FXML
+    void productos(ActionEvent event) throws IOException {
+        cargarVista("/fes/aragon/unam/administracion/productos-view.fxml");
+    }
+    @FXML
+    void zonas(ActionEvent event) throws IOException {
+        cargarVista("/fes/aragon/unam/administracion/zonas-view.fxml");
+    }
+
+
+    @FXML
+    void salir(ActionEvent event) {
+        Stage stage = (Stage) contenedor.getScene().getWindow();
+        stage.close();
+    }
 }

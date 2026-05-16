@@ -1,7 +1,9 @@
 package fes.aragon.unam.administracion.model;
 
 import javafx.scene.image.Image;
-import lombok.var;
+
+
+import java.io.InputStream;
 
 public class Producto {
     private int id;
@@ -42,7 +44,7 @@ public class Producto {
     public Image getImagen() {
         if (rutaImagen != null && !rutaImagen.isEmpty()) {
             try {
-                var stream = getClass().getResourceAsStream(
+                InputStream stream = getClass().getResourceAsStream(
                         "/fes/aragon/unam/administracion/Imagenes/" + rutaImagen
                 );
                 if (stream != null) return new Image(stream);
