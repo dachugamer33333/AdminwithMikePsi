@@ -1,49 +1,31 @@
 package fes.aragon.unam.administracion.controller;
 
-import javafx.application.Platform;
-import javafx.fxml.*;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.event.ActionEvent;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
-
+public class MainController {
+    @FXML
+    private MenuItem AgregarCamion;
 
     @FXML
-    private TextField bscBuscador;
-
-    @FXML
-    private Button btnAgregar;
-
-    @FXML
-    private Button btnDashboard;
-
-    @FXML
-    private Button btnTrabajador;
-
-    @FXML
-    private Button btnProductos;
-
-    @FXML
-    private Button btnSalir;
+    private MenuItem buscarCamion;
 
     @FXML
     private AnchorPane contenedor;
 
     @FXML
-    private Button btnZonas;
-
-
+    private MenuItem irProductos;
 
     private void cargarVista(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fes/aragon/unam/administracion/productos-view.fxml"));
         Parent vista = loader.load();
         contenedor.getChildren().clear();
         contenedor.getChildren().add(vista);
@@ -56,62 +38,13 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void Tabla(ActionEvent event) {
-
+    void irCamiones(ActionEvent event) throws IOException {
+        cargarVista("/fes/aragon/unam/administracion/camion-view.fxml");
     }
-
     @FXML
-    void agregarATabla(ActionEvent event) {
-
+    void irProductos(ActionEvent event) throws IOException {
+        cargarVista("/fes/aragon/unam/administracion/productos-view.fxml");
     }
 
-
-
-    @FXML
-    void irTrabajador(ActionEvent event) throws IOException {
-        cargarVista("/fes/aragon/unam/administracion/trabajador.fxml");
-    }
-
-    @FXML
-    void dashboard(ActionEvent event) throws IOException{
-        cargarVista ("/fes/aragon/unam/administracion/main-view.fxml");
-
-    }
-
-    @FXML
-    void productos(ActionEvent event) {
-
-    }
-
-    @FXML
-    void salir(ActionEvent event) {
-        Alert alertaConfirmacion= new Alert(Alert.AlertType.CONFIRMATION);
-        alertaConfirmacion.setTitle("Alerta de confirmacion");
-        alertaConfirmacion.setHeaderText(null);
-        alertaConfirmacion.setContentText("¿Estas seguro de abandonar el programa?");
-        Optional<ButtonType> resultado = alertaConfirmacion.showAndWait();
-
-        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-            Platform.exit();
-
-        }
-
-    }
-
-    @FXML
-    void zonas(ActionEvent event) throws IOException {
-        cargarVista ("/fes/aragon/unam/administracion/zonas-view.fxml");
-    }
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            cargarVista ("/fes/aragon/unam/administracion/main-view.fxml");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
 }
