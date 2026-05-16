@@ -100,7 +100,7 @@ public class ZonasController {
                                 "-fx-min-width: 30px; -fx-max-width: 30px;" +
                                 "-fx-min-height: 24px; -fx-max-height: 24px;";
 
-                btnEditar.setStyle(baseStyle + "-fx-background-color: #005995;");
+                btnEditar.setStyle(baseStyle + "-fx-background-color: #51C68E;");
                 btnEliminar.setStyle(baseStyle + "-fx-background-color: #FF1436;");
 
                 // Tooltip para que el usuario sepa qué hace cada botón

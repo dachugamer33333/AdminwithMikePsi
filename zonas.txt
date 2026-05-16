@@ -1,0 +1,19 @@
+1,04001,Amazonas
+2,05001,Áncash
+3,03001,Apurímac
+4,04401,Arequipa
+5,05201,Ayacucho
+6,090090kk,macarca
+11,11001,Ica
+12,12001,Junín
+13,13001,La Libertad
+14,14001,Lambayeque
+15,15001,Lima
+16,16001,Loreto
+17,17001,Madre de Dios
+18,18001,Moquegua
+19,19001,Pasco
+20,20001,Piura
+21,21001,Puno
+24,4001,Tumbes
+25,25001,Ucayali

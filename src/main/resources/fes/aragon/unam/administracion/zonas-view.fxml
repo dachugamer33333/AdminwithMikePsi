@@ -31,7 +31,7 @@
                 prefHeight="30.0" prefWidth="110.0"
                 text="+  Agregar"
                 textFill="WHITE"
-                style="-fx-background-color: #28a745; -fx-font-weight: bold; -fx-cursor: hand;"
+                style="-fx-background-color: #005995; -fx-font-weight: bold; -fx-cursor: hand;"
                 onAction="#abrirAgregar">
             <font><Font name="System Bold" size="13.0" /></font>
         </Button>
