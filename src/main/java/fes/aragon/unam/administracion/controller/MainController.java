@@ -5,12 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -82,8 +85,21 @@ public class MainController implements Initializable {
     @FXML
     void salir(ActionEvent event) {
         resetBotton(btnSalir);
-        Stage stage = (Stage) contenedor.getScene().getWindow();
-        stage.close();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setHeaderText("¿Estás seguro?");
+        alert.setContentText("Al precionar aceptar usted saldra del programa.");
+
+        Optional<ButtonType> resultado = alert.showAndWait();
+
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            Stage stage = (Stage) contenedor.getScene().getWindow();
+            stage.close();
+        } else {
+            // el usuario canceló, no hacer nada
+        }
+
+
     }
 
     @Override
