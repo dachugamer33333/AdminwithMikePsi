@@ -92,9 +92,10 @@ public class GestorZonas {
                 linea = linea.trim();
                 if (linea.isEmpty()) continue;
 
-                String[] partes = linea.split(",", 5);
+                // CAMBIO: separador | en lugar de ,
+                String[] partes = linea.split("\\|", 5);
                 if (partes.length == 5) {
-                    int id = Integer.parseInt(partes[0].trim());
+                    int id      = Integer.parseInt(partes[0].trim());
                     String dep  = partes[1].trim();
                     String cp   = partes[2].trim();
                     String ref  = partes[3].trim();
@@ -116,10 +117,11 @@ public class GestorZonas {
         File archivo = new File(carpeta, "zonas.txt");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
             for (Zona z : zonas) {
-                bw.write(z.getId() + "," +
-                        z.getDepartamento() + "," +
-                        z.getCp() + "," +
-                        z.getReferencia() + "," +
+                // CAMBIO: separador | en lugar de ,
+                bw.write(z.getId() + "|" +
+                        z.getDepartamento() + "|" +
+                        z.getCp() + "|" +
+                        z.getReferencia() + "|" +
                         z.getEstado());
                 bw.newLine();
             }

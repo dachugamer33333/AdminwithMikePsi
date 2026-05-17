@@ -40,7 +40,6 @@ public class ZonasController {
         colCp.setCellValueFactory(new PropertyValueFactory<>("cp"));
         colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
-        // Referencia con Tooltip para ver texto completo al pasar el mouse
         colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
         colReferencia.setCellFactory(col -> new TableCell<Zona, String>() {
             @Override
@@ -88,7 +87,6 @@ public class ZonasController {
     private void agregarBotonesAcciones() {
         colAcciones.setCellFactory(col -> new TableCell<>() {
 
-            // Botones pequeños con símbolos simples que SÍ renderiza JavaFX
             private final Button btnEditar = new Button("🖉");   // lápiz
             private final Button btnBloquear = new Button("⏸");   // bloquear
             private final Button btnEliminar = new Button("🗑");   // eliminar
