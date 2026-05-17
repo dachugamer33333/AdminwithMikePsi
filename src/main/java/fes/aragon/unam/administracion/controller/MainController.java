@@ -89,6 +89,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            resetBotton(btnDashboard);
             cargarVista("/fes/aragon/unam/administracion/main-view.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
