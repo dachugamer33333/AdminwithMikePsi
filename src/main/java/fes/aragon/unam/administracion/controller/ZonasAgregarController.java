@@ -6,10 +6,7 @@ import fes.aragon.unam.administracion.model.Zona;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class ZonasAgregarController {
@@ -28,6 +25,15 @@ public class ZonasAgregarController {
     public void initialize() {
         cmbDepartamento.setItems(
                 FXCollections.observableArrayList(gestor.getDepartamentos()));
+        //Formato de texto
+        TextFormatter<String> cpFormatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if(newText.matches("\\d{0,5}")){
+                return change;
+            }
+            return null;
+        });
+        this.txtCp.setTextFormatter(cpFormatter);
     }
 
     public void setZona(Zona zona) {

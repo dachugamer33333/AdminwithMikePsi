@@ -1,1 +1,2 @@
-1|Pepsi|Pepsi|20.0|Refresco refrescante|pepsi.png
+1|hola|hola|34.0|de|pepsi.png
+2|Pepsi|cola|32.0|sabor|pepsi.png
