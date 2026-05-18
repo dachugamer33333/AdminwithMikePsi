@@ -2,21 +2,28 @@ package fes.aragon.unam.administracion.controller;
 
 import fes.aragon.unam.administracion.dao.ProductoDAO;
 import fes.aragon.unam.administracion.model.Producto;
+import fes.aragon.unam.administracion.model.Zona;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class ProductoController implements Initializable {
 
@@ -66,7 +73,7 @@ public class ProductoController implements Initializable {
                 btnEditar.setStyle("-fx-background-color:#f39c12; -fx-text-fill:white; -fx-cursor:hand;");
                 btnEliminar.setStyle("-fx-background-color:#e74c3c; -fx-text-fill:white; -fx-cursor:hand;");
 
-                btnEditar.setOnAction(e -> abrirFormulario(getTableView().getItems().get(getIndex())));
+                btnEditar.setOnAction(e -> abrirVentana(getTableView().getItems().get(getIndex())));
                 btnEliminar.setOnAction(e -> eliminar(getTableView().getItems().get(getIndex())));
             }
 
@@ -80,15 +87,39 @@ public class ProductoController implements Initializable {
         tablaProductos.setItems(datos);
     }
 
-    private void cargarProductos() {
+    public void cargarProductos() {
         datos.setAll(dao.listar());
     }
 
     @FXML
     private void onAgregar() {
-        abrirFormulario(null);
+        abrirVentana(null);
     }
 
+    private void abrirVentana(Producto producto) {
+        boolean esEdicion = producto != null;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/fes/aragon/unam/administracion/productos-agregar.fxml"));
+            Parent root = loader.load();
+            AgregarProductosController ctrl = loader.getController();
+            ctrl.setProducto(producto);
+            ctrl.setProductoController(this);
+
+
+
+            Stage stage = new Stage();
+            stage.setTitle(producto == null ? "Agregar Producto" : "Editar Producto");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            System.err.println("Error abriendo ventana: " + e.getMessage());
+        }
+    }
+/*
     private void abrirFormulario(Producto existente) {
         boolean esEdicion = existente != null;
 
@@ -154,7 +185,7 @@ public class ProductoController implements Initializable {
             cargarProductos();
         }
     }
-
+        */
     private void eliminar(Producto p) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar");
