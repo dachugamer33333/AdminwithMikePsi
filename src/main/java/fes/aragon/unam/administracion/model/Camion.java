@@ -52,11 +52,6 @@ public class Camion {
         this.trabajador = trabajador;
     }
 
-    public void calcularVentasTotales() {
-        for (Caja caja : cajas) {
-            this.ventasTotales += caja.getTotalRefresco();
-        }
-    }
 
     public int getTotalCajas() {
         return cajas.size();
