@@ -134,6 +134,43 @@ public class MainViewController implements Initializable {
 
         datosTabla = FXCollections.observableArrayList(gestor.obtenerTodos());
         tabla.setItems(datosTabla);
+
+        tabla.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                Camion camion = tabla.getSelectionModel().getSelectedItem();
+                if (camion != null) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Detalle del Camión");
+                    alert.setHeaderText("Camión " + camion.getMatricula());
+
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("  ID:        ").append(camion.getId()).append("\n");
+                    sb.append("  Matrícula: ").append(camion.getMatricula()).append("\n");
+                    sb.append("  Fecha:     ").append(camion.getFecha()).append("\n");
+
+                    Trabajador t = camion.getTrabajador();
+                    sb.append("  Conductor: ").append(t != null ? t.getNombre() + " " + t.getApellidoPaterno() : "No asignado").append("\n");
+
+                    ArrayList<Zona> zonas = camion.getZonas();
+                    sb.append("  Zonas:     ");
+                    if (zonas.isEmpty()) sb.append("Ninguna");
+                    for (int i = 0; i < zonas.size(); i++) sb.append(i > 0 ? ", " : "").append(zonas.get(i).getDepartamento());
+                    sb.append("\n\n");
+
+                    sb.append("  Cajas:\n");
+                    if (camion.getCajas().isEmpty()) sb.append("    Ninguna\n");
+                    for (Caja c : camion.getCajas()) {
+                        Producto p = c.getTipo();
+                        sb.append("    🥤 ").append(p != null ? p.getNombre() + " (" + p.getSabor() + ")" : "?").append("  →  ").append(c.getTotalCajas()).append(" cajas\n");
+                    }
+                    sb.append("  ─────────────────────────\n");
+                    sb.append("  Total de cajas: ").append(camion.getTotalCajas()).append("\n");
+
+                    alert.setContentText(sb.toString());
+                    alert.showAndWait();
+                }
+            }
+        });
     }
 
     @FXML
