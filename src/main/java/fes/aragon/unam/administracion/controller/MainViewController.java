@@ -176,8 +176,24 @@ public class MainViewController implements Initializable {
             refrescarTabla();
         }
     }
-    private void agregarCaja(Camion camion)
-    {
+    private void agregarCaja(Camion camion) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/fes/aragon/unam/administracion/cajas-agregar.fxml"));
+            Parent root = loader.load();
+            AgregarCajasController ctrl = loader.getController();
+            ctrl.setCamion(camion);
+            ctrl.setMainViewController(this);
 
+            Stage stage = new Stage();
+            stage.setTitle("Agregar Caja");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            System.err.println("Error abriendo ventana: " + e.getMessage());
+        }
     }
 }
