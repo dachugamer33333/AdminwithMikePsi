@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -111,15 +113,18 @@ public class MainViewController implements Initializable {
                             "-fx-min-height: 24px; -fx-max-height: 24px;";
             private final Button btnEditar = new Button("🖉");
             private final Button btnEliminar = new Button("🗑");
-            private final HBox box = new HBox(6, btnEditar, btnEliminar);
+            private final Button btnAgregarCaja= new Button("+");
+            private final HBox box = new HBox(6, btnEditar, btnEliminar,btnAgregarCaja);
 
             {
                 box.setAlignment(Pos.CENTER);
                 btnEditar.setStyle(baseStyle + "-fx-background-color: #51C68E");
-                btnEliminar.setStyle(baseStyle + "-fx-background-color: #FF1436;");
+                btnEliminar.setStyle(baseStyle + "-fx-background-color: #FF1436");
+                btnAgregarCaja.setStyle(baseStyle + "-fx-background-color: #28a745");
 
                 btnEditar.setOnAction(e -> abrirVentana(getTableView().getItems().get(getIndex())));
                 btnEliminar.setOnAction(e -> eliminar(getTableView().getItems().get(getIndex())));
+                btnAgregarCaja.setOnAction(e-> agregarCaja(getTableView().getItems().get(getIndex())) );
             }
 
             @Override
@@ -131,6 +136,46 @@ public class MainViewController implements Initializable {
 
         datosTabla = FXCollections.observableArrayList(gestor.obtenerTodos());
         tabla.setItems(datosTabla);
+
+        bscBuscador.textProperty().addListener((obs, oldVal, newVal) -> aplicarFiltro());
+        pkFecha.valueProperty().addListener((obs, oldVal, newVal) -> aplicarFiltro());
+
+        tabla.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                Camion camion = tabla.getSelectionModel().getSelectedItem();
+                if (camion != null) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Detalle del Camión");
+                    alert.setHeaderText("Camión " + camion.getMatricula());
+
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("  ID:        ").append(camion.getId()).append("\n");
+                    sb.append("  Matrícula: ").append(camion.getMatricula()).append("\n");
+                    sb.append("  Fecha:     ").append(camion.getFecha()).append("\n");
+
+                    Trabajador t = camion.getTrabajador();
+                    sb.append("  Conductor: ").append(t != null ? t.getNombre() + " " + t.getApellidoPaterno() : "No asignado").append("\n");
+
+                    ArrayList<Zona> zonas = camion.getZonas();
+                    sb.append("  Zonas:     ");
+                    if (zonas.isEmpty()) sb.append("Ninguna");
+                    for (int i = 0; i < zonas.size(); i++) sb.append(i > 0 ? ", " : "").append(zonas.get(i).getDepartamento());
+                    sb.append("\n\n");
+
+                    sb.append("  Cajas:\n");
+                    if (camion.getCajas().isEmpty()) sb.append("    Ninguna\n");
+                    for (Caja c : camion.getCajas()) {
+                        Producto p = c.getTipo();
+                        sb.append("    🥤 ").append(p != null ? p.getNombre() + " (" + p.getSabor() + ")" : "?").append("  →  ").append(c.getTotalCajas()).append(" cajas\n");
+                    }
+                    sb.append("  ─────────────────────────\n");
+                    sb.append("  Total de cajas: ").append(camion.getTotalCajas()).append("\n");
+
+                    alert.setContentText(sb.toString());
+                    alert.showAndWait();
+                }
+            }
+        });
     }
 
     @FXML
@@ -146,6 +191,10 @@ public class MainViewController implements Initializable {
             AgregarCamionController ctrl = loader.getController();
             ctrl.setCamion(camion);
             ctrl.setMainViewController(this);
+            if (camion==null)
+            {
+                pkFecha.setValue(LocalDate.now());
+            }
 
             Stage stage = new Stage();
             stage.setTitle(camion == null ? "Agregar Camión" : "Editar Camión");
@@ -161,6 +210,35 @@ public class MainViewController implements Initializable {
 
     public void refrescarTabla() {
         datosTabla.setAll(gestor.obtenerTodos());
+        aplicarFiltro();
+    }
+
+    private void aplicarFiltro() {
+        String texto = bscBuscador.getText().trim().toLowerCase();
+        LocalDate fechaFiltro = pkFecha.getValue();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        ObservableList<Camion> filtrados = FXCollections.observableArrayList();
+
+        for (Camion c : gestor.obtenerTodos()) {
+            boolean coincideMatricula = texto.isEmpty() || c.getMatricula().toLowerCase().contains(texto);
+
+            boolean coincideFecha = true;
+            if (fechaFiltro != null && c.getFecha() != null && !c.getFecha().isEmpty()) {
+                try {
+                    LocalDate fechaCamion = LocalDate.parse(c.getFecha(), fmt);
+                    coincideFecha = fechaCamion.equals(fechaFiltro);
+                } catch (Exception e) {
+                    coincideFecha = false;
+                }
+            }
+
+            if (coincideMatricula && coincideFecha) {
+                filtrados.add(c);
+            }
+        }
+
+        datosTabla.setAll(filtrados);
     }
 
     private void eliminar(Camion c) {
@@ -171,6 +249,26 @@ public class MainViewController implements Initializable {
         if (res.isPresent() && res.get() == ButtonType.OK) {
             gestor.eliminarCamion(c.getId());
             refrescarTabla();
+        }
+    }
+    private void agregarCaja(Camion camion) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/fes/aragon/unam/administracion/cajas-agregar.fxml"));
+            Parent root = loader.load();
+            AgregarCajasController ctrl = loader.getController();
+            ctrl.setCamion(camion);
+            ctrl.setMainViewController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Agregar Caja");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            System.err.println("Error abriendo ventana: " + e.getMessage());
         }
     }
 }

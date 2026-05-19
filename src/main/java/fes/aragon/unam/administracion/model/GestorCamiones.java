@@ -1,9 +1,11 @@
 package fes.aragon.unam.administracion.model;
 
 import fes.aragon.unam.administracion.ArchivoTrabajador;
+import fes.aragon.unam.administracion.dao.ProductoDAO;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GestorCamiones {
     private static GestorCamiones instancia;
@@ -108,6 +110,27 @@ public class GestorCamiones {
                         }
                     }
 
+                    if (partes.length >= 6 && !partes[5].trim().isEmpty()) {
+                        String[] cajasData = partes[5].trim().split(",");
+                        List<Producto> productos = new ProductoDAO().listar();
+                        for (String cajaStr : cajasData) {
+                            String[] parts = cajaStr.trim().split(":");
+                            if (parts.length == 3) {
+                                int idCaja = Integer.parseInt(parts[0].trim());
+                                int idProducto = Integer.parseInt(parts[1].trim());
+                                int cantidad = Integer.parseInt(parts[2].trim());
+                                for (Producto p : productos) {
+                                    if (p.getId() == idProducto) {
+                                        Caja caja = new Caja(p, cantidad);
+                                        caja.setId(idCaja);
+                                        c.agregarCaja(caja);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     camiones.add(c);
                 }
             }
@@ -138,13 +161,27 @@ public class GestorCamiones {
                 sb.append(c.getMatricula() != null ? c.getMatricula() : "").append("|");
                 sb.append(c.getFecha() != null ? c.getFecha() : "").append("|");
                 sb.append(c.getTrabajador() != null ? c.getTrabajador().getId() : "").append("|");
-                sb.append(zonasIdsToString(c.getZonas()));
+                sb.append(zonasIdsToString(c.getZonas())).append("|");
+                sb.append(cajasToString(c.getCajas()));
                 bw.write(sb.toString());
                 bw.newLine();
             }
         } catch (IOException e) {
             System.err.println("Error guardando camiones.txt: " + e.getMessage());
         }
+    }
+
+    private String cajasToString(ArrayList<Caja> cajas) {
+        if (cajas == null || cajas.isEmpty()) return "";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < cajas.size(); i++) {
+            if (i > 0) sb.append(",");
+            Caja c = cajas.get(i);
+            sb.append(c.getId()).append(":");
+            sb.append(c.getTipo() != null ? c.getTipo().getId() : 0).append(":");
+            sb.append(c.getTotalCajas());
+        }
+        return sb.toString();
     }
 
     private String zonasIdsToString(ArrayList<Zona> zonas) {

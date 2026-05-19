@@ -185,7 +185,8 @@ public class AgregarCamionController implements Initializable {
         ArrayList<Zona> zonasSeleccionadas = new ArrayList<>(lwSelect.getItems());
 
         if (camionEditar == null) {
-            Camion c = new Camion(0, matricula);
+            int id = Integer.parseInt(txtId.getText().trim());
+            Camion c = new Camion(id, matricula);
             c.setFecha(fecha);
             c.setTrabajador(trabajador);
             for (Zona z : zonasSeleccionadas) c.agregarZona(z);
