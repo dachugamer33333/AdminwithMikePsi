@@ -111,15 +111,18 @@ public class MainViewController implements Initializable {
                             "-fx-min-height: 24px; -fx-max-height: 24px;";
             private final Button btnEditar = new Button("🖉");
             private final Button btnEliminar = new Button("🗑");
-            private final HBox box = new HBox(6, btnEditar, btnEliminar);
+            private final Button btnAgregarCaja= new Button("+");
+            private final HBox box = new HBox(6, btnEditar, btnEliminar,btnAgregarCaja);
 
             {
                 box.setAlignment(Pos.CENTER);
                 btnEditar.setStyle(baseStyle + "-fx-background-color: #51C68E");
-                btnEliminar.setStyle(baseStyle + "-fx-background-color: #FF1436;");
+                btnEliminar.setStyle(baseStyle + "-fx-background-color: #FF1436");
+                btnAgregarCaja.setStyle(baseStyle + "-fx-background-color: #28a745");
 
                 btnEditar.setOnAction(e -> abrirVentana(getTableView().getItems().get(getIndex())));
                 btnEliminar.setOnAction(e -> eliminar(getTableView().getItems().get(getIndex())));
+                btnAgregarCaja.setOnAction(e-> agregarCaja(getTableView().getItems().get(getIndex())) );
             }
 
             @Override
@@ -172,5 +175,9 @@ public class MainViewController implements Initializable {
             gestor.eliminarCamion(c.getId());
             refrescarTabla();
         }
+    }
+    private void agregarCaja(Camion camion)
+    {
+
     }
 }
