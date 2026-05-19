@@ -12,11 +12,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.ComboBox;
+import javafx.stage.FileChooser;
 
 public class ProductoController implements Initializable {
 
@@ -36,7 +38,7 @@ public class ProductoController implements Initializable {
         configurarColumnas();
         cargarProductos();
 
-        // Doble clic en fila para ver detalle
+        // Esto es para el click
         tablaProductos.setRowFactory(tv -> {
             TableRow<Producto> row = new TableRow<>();
             row.setOnMouseClicked(e -> {
@@ -96,16 +98,33 @@ public class ProductoController implements Initializable {
         TextField txtSabor       = new TextField();
         TextField txtPrecio      = new TextField();
         TextField txtDescripcion = new TextField();
-        ComboBox<String> cmbImagen = new ComboBox<>();
-        cmbImagen.getItems().addAll("pepsi.png", "manzanita.png");
-        cmbImagen.setPromptText("Seleccionar imagen");
+        TextField txtImagen = new TextField();
+        txtImagen.setPromptText("Ruta de imagen (opcional)");
+        txtImagen.setPrefWidth(200);
+
+        Button btnExaminar = new Button("📁");
+        btnExaminar.setStyle("-fx-cursor: hand;");
+        btnExaminar.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Seleccionar imagen");
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif")
+            );
+            File archivo = fileChooser.showOpenDialog(btnExaminar.getScene().getWindow());
+            if (archivo != null) {
+                txtImagen.setText(archivo.toURI().toString());
+            }
+        });
+
+        HBox hboxImagen = new HBox(5, txtImagen, btnExaminar);
 
         if (esEdicion) {
             txtNombre.setText(existente.getNombre());
             txtSabor.setText(existente.getSabor());
             txtPrecio.setText(String.valueOf(existente.getPrecio()));
             txtDescripcion.setText(existente.getDescripcion());
-            cmbImagen.setValue(existente.getRutaImagen());
+            txtImagen.setText(existente.getRutaImagen() != null ? existente.getRutaImagen() : "");
+
 
         }
 
@@ -121,7 +140,7 @@ public class ProductoController implements Initializable {
         grid.add(new Label("Sabor:"),       0, 1); grid.add(txtSabor,       1, 1);
         grid.add(new Label("Precio:"),      0, 2); grid.add(txtPrecio,      1, 2);
         grid.add(new Label("Descripción:"), 0, 3); grid.add(txtDescripcion, 1, 3);
-        grid.add(new Label("Imagen:"), 0, 4); grid.add(cmbImagen, 1, 4);
+        grid.add(new Label("Imagen:"), 0, 4); grid.add(hboxImagen, 1, 4);
 
         javafx.scene.layout.VBox contenido = new javafx.scene.layout.VBox(grid);
         dialog.getDialogPane().setContent(contenido);
@@ -133,20 +152,39 @@ public class ProductoController implements Initializable {
                 mostrarAlerta("El nombre es obligatorio.");
                 return;
             }
+            if (!txtNombre.getText().trim().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+                mostrarAlerta("El nombre solo puede contener letras.");
+                return;
+            }
+            if (txtSabor.getText().trim().isEmpty()) {
+                mostrarAlerta("El sabor es obligatorio.");
+                return;
+            }
+            if (!txtSabor.getText().trim().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+                mostrarAlerta("El sabor solo puede contener letras.");
+                return;
+            }
+            if (txtDescripcion.getText().trim().isEmpty()) {
+                mostrarAlerta("La descripción es obligatoria.");
+                return;
+            }
             double precio;
             try {
                 precio = Double.parseDouble(txtPrecio.getText().trim());
+                if (precio <= 0) {
+                    mostrarAlerta("El precio debe ser mayor a 0.");
+                    return;
+                }
             } catch (NumberFormatException e) {
                 mostrarAlerta("El precio debe ser un número.");
                 return;
             }
-
             Producto p = esEdicion ? existente : new Producto(0, "", "", 0, "", "");
             p.setNombre(txtNombre.getText().trim());
             p.setSabor(txtSabor.getText().trim());
             p.setPrecio(precio);
             p.setDescripcion(txtDescripcion.getText().trim());
-            p.setRutaImagen(cmbImagen.getValue() != null ? cmbImagen.getValue() : "");
+            p.setRutaImagen(txtImagen.getText().trim());
 
             if (esEdicion) dao.editar(p);
             else           dao.agregar(p);

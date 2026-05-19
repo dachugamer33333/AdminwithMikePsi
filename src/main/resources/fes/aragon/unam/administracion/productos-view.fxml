@@ -18,7 +18,8 @@
     <HBox>
         <Button text="+ Agregar Producto"
                 onAction="#onAgregar"
-                style="-fx-background-color: #27ae60; -fx-text-fill: white;
+                style="-fx-background-color: #2980b9;
+
                        -fx-font-size: 13; -fx-padding: 8 18; -fx-cursor: hand;
                        -fx-background-radius: 6;"/>
     </HBox>
