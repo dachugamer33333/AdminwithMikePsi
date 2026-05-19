@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -135,6 +137,9 @@ public class MainViewController implements Initializable {
         datosTabla = FXCollections.observableArrayList(gestor.obtenerTodos());
         tabla.setItems(datosTabla);
 
+        bscBuscador.textProperty().addListener((obs, oldVal, newVal) -> aplicarFiltro());
+        pkFecha.valueProperty().addListener((obs, oldVal, newVal) -> aplicarFiltro());
+
         tabla.setOnMouseClicked(e -> {
             if (e.getClickCount() == 2) {
                 Camion camion = tabla.getSelectionModel().getSelectedItem();
@@ -201,6 +206,35 @@ public class MainViewController implements Initializable {
 
     public void refrescarTabla() {
         datosTabla.setAll(gestor.obtenerTodos());
+        aplicarFiltro();
+    }
+
+    private void aplicarFiltro() {
+        String texto = bscBuscador.getText().trim().toLowerCase();
+        LocalDate fechaFiltro = pkFecha.getValue();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        ObservableList<Camion> filtrados = FXCollections.observableArrayList();
+
+        for (Camion c : gestor.obtenerTodos()) {
+            boolean coincideMatricula = texto.isEmpty() || c.getMatricula().toLowerCase().contains(texto);
+
+            boolean coincideFecha = true;
+            if (fechaFiltro != null && c.getFecha() != null && !c.getFecha().isEmpty()) {
+                try {
+                    LocalDate fechaCamion = LocalDate.parse(c.getFecha(), fmt);
+                    coincideFecha = fechaCamion.equals(fechaFiltro);
+                } catch (Exception e) {
+                    coincideFecha = false;
+                }
+            }
+
+            if (coincideMatricula && coincideFecha) {
+                filtrados.add(c);
+            }
+        }
+
+        datosTabla.setAll(filtrados);
     }
 
     private void eliminar(Camion c) {
