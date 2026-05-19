@@ -1,1 +1,2 @@
 1|Arequipa|54738|kuroi3br|BLOQUEADA
+2|Cusco|53423|hola|BLOQUEADA

@@ -1,1 +1,2 @@
 1|pepsi|cola|22.0|dd|
+2|Manzanita|manzana|23.0|hola|pepsi.png
