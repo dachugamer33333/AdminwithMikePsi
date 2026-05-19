@@ -23,7 +23,7 @@
                 <TableColumn fx:id="colZona" prefWidth="62.499969482421875" text="Zona" />
                 <TableColumn fx:id="colMatricula" prefWidth="102.0" text="Matricula" />
                 <TableColumn fx:id="colCajas" prefWidth="70.0" text="Cajas" />
-            <TableColumn text="Fecha" />
+            <TableColumn fx:id="colFecha" text="Fecha" />
                 <TableColumn fx:id="colAcciones" prefWidth="130.0" text="Acciones" />
             </columns>
             <effect>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Camion {
     private int id;
     private String matricula;
+    private String fecha;
     private ArrayList<Caja> cajas = new ArrayList<>();
     private ArrayList<Zona> zonas = new ArrayList<>();
     private Trabajador trabajador;
@@ -22,6 +23,9 @@ public class Camion {
 
     public String getMatricula() { return matricula; }
     public void setMatricula(String matricula) { this.matricula = matricula; }
+
+    public String getFecha() { return fecha; }
+    public void setFecha(String fecha) { this.fecha = fecha; }
 
     public ArrayList<Caja> getCajas() { return cajas; }
     public ArrayList<Zona> getZonas() { return zonas; }
@@ -44,14 +48,13 @@ public class Camion {
         zonas.add(zona);
     }
 
-    public void descargarCaja(int id) {
-        zonas.remove(id);
+    public boolean descargarCaja(int id) {
+        return cajas.removeIf(c -> c.getId() == id);
     }
 
     public void asignarConductor(Trabajador trabajador) {
         this.trabajador = trabajador;
     }
-
 
     public int getTotalCajas() {
         return cajas.size();

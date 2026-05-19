@@ -6,21 +6,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
-
     @FXML
-    private TableColumn<?, ?> acciones;
+    private DatePicker pkFecha;
 
     @FXML
     private TextField bscBuscador;
@@ -29,13 +34,16 @@ public class MainViewController implements Initializable {
     private Button btnAgregar;
 
     @FXML
-    private TableColumn<?, ?> colAcciones;
+    private TableColumn<Camion, Void> colAcciones;
 
     @FXML
     private TableColumn<Camion, String> colCajas;
 
     @FXML
     private TableColumn<Camion, String> colConductor;
+
+    @FXML
+    private TableColumn<Camion, String> colFecha;
 
     @FXML
     private TableColumn<Camion, Integer> colId;
@@ -57,8 +65,14 @@ public class MainViewController implements Initializable {
         gestor = GestorCamiones.getInstance();
 
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colConductor.setCellValueFactory(new PropertyValueFactory<>("trabajador"));
         colMatricula.setCellValueFactory(new PropertyValueFactory<>("matricula"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+
+        colConductor.setCellValueFactory(cellData -> {
+            Trabajador t = cellData.getValue().getTrabajador();
+            if (t == null) return new SimpleStringProperty("");
+            return new SimpleStringProperty(t.getNombre() + " " + t.getApellidoPaterno());
+        });
 
         colZona.setCellValueFactory(cellData -> {
             Camion camion = cellData.getValue();
@@ -89,12 +103,68 @@ public class MainViewController implements Initializable {
             return new SimpleStringProperty(sb.toString());
         });
 
+        colAcciones.setCellFactory(col -> new TableCell<>() {
+            private final Button btnEditar = new Button("Editar");
+            private final Button btnEliminar = new Button("Eliminar");
+            private final HBox box = new HBox(6, btnEditar, btnEliminar);
+
+            {
+                box.setAlignment(Pos.CENTER);
+                btnEditar.setStyle("-fx-background-color:#f39c12; -fx-text-fill:white; -fx-cursor:hand;");
+                btnEliminar.setStyle("-fx-background-color:#e74c3c; -fx-text-fill:white; -fx-cursor:hand;");
+
+                btnEditar.setOnAction(e -> abrirVentana(getTableView().getItems().get(getIndex())));
+                btnEliminar.setOnAction(e -> eliminar(getTableView().getItems().get(getIndex())));
+            }
+
+            @Override
+            protected void updateItem(Void v, boolean empty) {
+                super.updateItem(v, empty);
+                setGraphic(empty ? null : box);
+            }
+        });
+
         datosTabla = FXCollections.observableArrayList(gestor.obtenerTodos());
         tabla.setItems(datosTabla);
     }
 
     @FXML
     void agregaraTabla(ActionEvent event) {
+        abrirVentana(null);
+    }
 
+    private void abrirVentana(Camion camion) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/fes/aragon/unam/administracion/camion-agregar.fxml"));
+            Parent root = loader.load();
+            AgregarCamionController ctrl = loader.getController();
+            ctrl.setCamion(camion);
+            ctrl.setMainViewController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle(camion == null ? "Agregar Camión" : "Editar Camión");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            System.err.println("Error abriendo ventana: " + e.getMessage());
+        }
+    }
+
+    public void refrescarTabla() {
+        datosTabla.setAll(gestor.obtenerTodos());
+    }
+
+    private void eliminar(Camion c) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar");
+        alert.setContentText("¿Eliminar el camión \"" + c.getMatricula() + "\"?");
+        Optional<ButtonType> res = alert.showAndWait();
+        if (res.isPresent() && res.get() == ButtonType.OK) {
+            gestor.eliminarCamion(c.getId());
+            refrescarTabla();
+        }
     }
 }
