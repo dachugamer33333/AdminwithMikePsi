@@ -85,6 +85,52 @@ public class ZonasController {
     }
 
     private void agregarBotonesAcciones() {
+
+        tablaZonas.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getClickCount() == 2) {
+                Zona zona = tablaZonas.getSelectionModel().getSelectedItem();
+                if (zona != null) {
+                    String nombreImagen = zona.getDepartamento()
+                            .toLowerCase()
+                            .replace(" ", "")
+                            .replace("á", "a")
+                            .replace("é", "e")
+                            .replace("í", "i")
+                            .replace("ó", "o")
+                            .replace("ú", "u")
+                            .replace("ñ", "n");
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Detalle de la Zona");
+                    alert.setHeaderText(zona.getDepartamento());
+                    alert.setContentText(
+                            "ID: "           + zona.getId()           + "\n" +
+                                    "Departamento: " + zona.getDepartamento() + "\n" +
+                                    "Cód. Postal: "  + zona.getCp()           + "\n" +
+                                    "Referencia: "   + zona.getReferencia()   + "\n" +
+                                    "Estado: "       + zona.getEstado()
+                    );
+
+                    try {
+                        javafx.scene.image.Image img = new javafx.scene.image.Image(
+                                getClass().getResourceAsStream(
+                                        "/fes/aragon/unam/administracion/Imagenes/zonas/" + nombreImagen + ".png"
+                                )
+                        );
+                        javafx.scene.image.ImageView imgView = new javafx.scene.image.ImageView(img);
+                        imgView.setFitWidth(200);
+                        imgView.setFitHeight(150);
+                        imgView.setPreserveRatio(true);
+                        alert.setGraphic(imgView);
+                    } catch (Exception e) {
+                        System.err.println("No se encontró imagen para: " + nombreImagen);
+                    }
+
+                    alert.showAndWait();
+                }
+            }
+        });
+
         colAcciones.setCellFactory(col -> new TableCell<>() {
 
             private final Button btnEditar = new Button("🖉");   // lápiz

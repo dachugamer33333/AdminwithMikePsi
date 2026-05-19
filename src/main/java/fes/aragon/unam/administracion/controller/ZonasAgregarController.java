@@ -77,8 +77,8 @@ public class ZonasAgregarController {
             mostrarError("La referencia no puede estar vacía.");
             return false;
         }
-        if (ref.length() > 100) {
-            mostrarError("La referencia no puede tener más de 100 caracteres.\n"
+        if (ref.length() > 150) {
+            mostrarError("La referencia no puede tener más de 150 caracteres.\n"
                     + "Actualmente tiene " + ref.length() + ".");
             return false;
         }
