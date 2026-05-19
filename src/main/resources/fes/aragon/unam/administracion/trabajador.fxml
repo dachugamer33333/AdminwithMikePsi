@@ -23,7 +23,7 @@
             <Button fx:id="btnSubirFoto" layoutX="1.0" layoutY="120.0" mnemonicParsing="false" onAction="#subirFoto" prefHeight="26.0" prefWidth="119.0" text="Subir Foto" />
          </children>
       </AnchorPane>
-      <TextField fx:id="txtIdEmpleado" layoutX="413.0" layoutY="99.0" prefHeight="25.0" prefWidth="90.0" />
+      <TextField fx:id="txtIdEmpleado" layoutX="413.0" layoutY="99.0" prefHeight="25.0" prefWidth="90.0" promptText="ID" />
       <Label layoutX="413.0" layoutY="74.0" text="ID">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -55,17 +55,14 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
-         <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
-         </graphic>
       </Button>
       <TableView fx:id="tblTrabajadores" layoutX="15.0" layoutY="71.0" prefHeight="423.0" prefWidth="385.0">
         <columns>
-          <TableColumn fx:id="clmId" prefWidth="45.0" text="ID" />
-          <TableColumn fx:id="clmNombre" prefWidth="90.0" text="Nombre" />
-            <TableColumn fx:id="clmApellido" prefWidth="100.5" text="Apellido" />
-            <TableColumn fx:id="clmEstatus" prefWidth="80.5" text="Estatus" />
-            <TableColumn fx:id="clmAcciones" prefWidth="69.0" text="Acciones" />
+          <TableColumn fx:id="clmId" prefWidth="42.0" text="ID" />
+          <TableColumn fx:id="clmNombre" prefWidth="92.0" text="Nombre" />
+            <TableColumn fx:id="clmApellido" prefWidth="100.0" text="Apellido" />
+            <TableColumn fx:id="clmEstatus" prefWidth="78.0" text="Estatus" />
+            <TableColumn fx:id="clmAcciones" prefWidth="74.0" text="Acciones" />
         </columns>
       </TableView>
       <AnchorPane layoutX="-2.0" prefHeight="55.0" prefWidth="650.0" style="-fx-background-color: #313A46;">

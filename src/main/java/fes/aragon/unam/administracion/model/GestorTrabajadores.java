@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
+
 public class GestorTrabajadores {
     private static GestorTrabajadores instancia;
     private ObservableList<Trabajador> listaTrabajadores;
