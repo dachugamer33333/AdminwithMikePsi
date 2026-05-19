@@ -6,11 +6,11 @@ import lombok.Data;
 public class Caja {
     private int id;
     private Producto tipo;
-    private int totalRefresco;
-    private int sizeCaja;
+    private int totalCajas;
+
 
     public Caja(Producto tipo, int totalRefresco) {
         this.tipo = tipo;
-        this.totalRefresco = totalRefresco;
+        this.totalCajas= totalRefresco;
     }
 }
