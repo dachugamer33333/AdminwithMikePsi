@@ -119,6 +119,8 @@ public class ProductoController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle(producto == null ? "Agregar Producto" : "Editar Producto");
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+
             stage.setScene(new Scene(root));
             stage.showAndWait();
 

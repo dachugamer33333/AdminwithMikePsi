@@ -189,6 +189,8 @@ public class ZonasController {
             Stage stage = new Stage();
             stage.setTitle(zona == null ? "Agregar Zona" : "Editar Zona");
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+
             stage.setScene(new Scene(root));
             stage.showAndWait();
 
