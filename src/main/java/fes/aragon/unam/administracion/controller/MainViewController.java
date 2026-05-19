@@ -150,6 +150,7 @@ public class MainViewController implements Initializable {
             Stage stage = new Stage();
             stage.setTitle(camion == null ? "Agregar Camión" : "Editar Camión");
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.showAndWait();
 
