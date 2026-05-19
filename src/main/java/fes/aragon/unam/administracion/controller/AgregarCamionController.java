@@ -106,7 +106,13 @@ public class AgregarCamionController implements Initializable {
 
     private void cargarZonas() {
         ArrayList<Zona> todas = GestorZonas.getInstance().obtenerTodos();
-        lwDisp.setItems(FXCollections.observableArrayList(todas));
+        ObservableList<Zona> activas = FXCollections.observableArrayList();
+        for (Zona z : todas) {
+            if ("ACTIVA".equals(z.getEstado())) {
+                activas.add(z);
+            }
+        }
+        lwDisp.setItems(activas);
         lwDisp.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Zona z, boolean empty) {

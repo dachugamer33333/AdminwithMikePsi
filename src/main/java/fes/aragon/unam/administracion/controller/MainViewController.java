@@ -104,14 +104,19 @@ public class MainViewController implements Initializable {
         });
 
         colAcciones.setCellFactory(col -> new TableCell<>() {
-            private final Button btnEditar = new Button("Editar");
-            private final Button btnEliminar = new Button("Eliminar");
+            String baseStyle =
+                    "-fx-font-size: 12px; -fx-font-weight: bold;" +
+                            "-fx-cursor: hand; -fx-text-fill: white;" +
+                            "-fx-min-width: 30px; -fx-max-width: 30px;" +
+                            "-fx-min-height: 24px; -fx-max-height: 24px;";
+            private final Button btnEditar = new Button("🖉");
+            private final Button btnEliminar = new Button("🗑");
             private final HBox box = new HBox(6, btnEditar, btnEliminar);
 
             {
                 box.setAlignment(Pos.CENTER);
-                btnEditar.setStyle("-fx-background-color:#f39c12; -fx-text-fill:white; -fx-cursor:hand;");
-                btnEliminar.setStyle("-fx-background-color:#e74c3c; -fx-text-fill:white; -fx-cursor:hand;");
+                btnEditar.setStyle(baseStyle + "-fx-background-color: #51C68E");
+                btnEliminar.setStyle(baseStyle + "-fx-background-color: #FF1436;");
 
                 btnEditar.setOnAction(e -> abrirVentana(getTableView().getItems().get(getIndex())));
                 btnEliminar.setOnAction(e -> eliminar(getTableView().getItems().get(getIndex())));
