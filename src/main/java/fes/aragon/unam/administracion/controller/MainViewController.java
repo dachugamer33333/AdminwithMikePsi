@@ -191,6 +191,10 @@ public class MainViewController implements Initializable {
             AgregarCamionController ctrl = loader.getController();
             ctrl.setCamion(camion);
             ctrl.setMainViewController(this);
+            if (camion==null)
+            {
+                pkFecha.setValue(LocalDate.now());
+            }
 
             Stage stage = new Stage();
             stage.setTitle(camion == null ? "Agregar Camión" : "Editar Camión");
