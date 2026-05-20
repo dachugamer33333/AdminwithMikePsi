@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ProductoDAO {
 
-    private static final String ARCHIVO = "productos.txt";
+    private static final String ARCHIVO = "datos/productos.txt";
 
     // Leer todos los productos del archivo
     public List<Producto> listar() {

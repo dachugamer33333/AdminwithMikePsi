@@ -6,15 +6,12 @@ import fes.aragon.unam.administracion.model.Zona;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class ZonasAgregarController {
 
-    @FXML private TextField  txtId;           // solo lectura
+    @FXML private TextField  txtId;
     @FXML private ComboBox<String> cmbDepartamento;
     @FXML private TextField  txtCp;
     @FXML private TextField  txtReferencia;
@@ -28,6 +25,15 @@ public class ZonasAgregarController {
     public void initialize() {
         cmbDepartamento.setItems(
                 FXCollections.observableArrayList(gestor.getDepartamentos()));
+        //Formato de texto
+        TextFormatter<String> cpFormatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if(newText.matches("\\d{0,5}")){
+                return change;
+            }
+            return null;
+        });
+        this.txtCp.setTextFormatter(cpFormatter);
     }
 
     public void setZona(Zona zona) {
@@ -40,7 +46,7 @@ public class ZonasAgregarController {
             lblTitulo.setText("Editar Zona");
             txtId.setText(String.valueOf(zona.getId()));
             cmbDepartamento.setValue(zona.getDepartamento());
-            cmbDepartamento.setDisable(true); // departamento no editable
+            cmbDepartamento.setDisable(true);
             txtCp.setText(zona.getCp());
             txtReferencia.setText(zona.getReferencia());
         }
@@ -49,24 +55,44 @@ public class ZonasAgregarController {
     public void setZonasController(ZonasController ctrl) {
         this.zonasController = ctrl;
     }
+    //  Validaciones
+    private boolean validar() {
+        String dep = cmbDepartamento.getValue();
+        String cp  = txtCp.getText().trim();
+        String ref = txtReferencia.getText().trim();
+
+        if (dep == null || dep.isEmpty()) {
+            mostrarError("Debes seleccionar un departamento.");
+            return false;
+        }
+        if (cp.isEmpty()) {
+            mostrarError("El código postal no puede estar vacío.");
+            return false;
+        }
+        if (!cp.matches("\\d{5}")) {
+            mostrarError("El código postal debe tener exactamente 5 dígitos numéricos.");
+            return false;
+        }
+        if (ref.isEmpty()) {
+            mostrarError("La referencia no puede estar vacía.");
+            return false;
+        }
+        if (ref.length() > 100) {
+            mostrarError("La referencia no puede tener más de 100 caracteres.\n"
+                    + "Actualmente tiene " + ref.length() + ".");
+            return false;
+        }
+        return true;
+    }
 
     @FXML
     void guardar(ActionEvent event) {
-        String dep  = cmbDepartamento.getValue();
-        String cp   = txtCp.getText().trim();
-        String ref  = txtReferencia.getText().trim();
+        if (!validar()) return;
 
-        if (dep == null || dep.isEmpty()) {
-            mostrarAlerta("Selecciona un departamento.");
-            return;
-        }
-
-        if (!cp.matches("\\d{5}")) {
-            mostrarAlerta("El código postal debe tener exactamente 5 dígitos numéricos.");
-            return;
-        }
-
-        int id = Integer.parseInt(txtId.getText().trim());
+        String dep = cmbDepartamento.getValue();
+        String cp  = txtCp.getText().trim();
+        String ref = txtReferencia.getText().trim();
+        int id     = Integer.parseInt(txtId.getText().trim());
 
         if (zonaEditar == null) {
             gestor.agregarZona(new Zona(id, dep, cp, ref, "ACTIVA"));
@@ -87,10 +113,10 @@ public class ZonasAgregarController {
         ((Stage) txtCp.getScene().getWindow()).close();
     }
 
-    private void mostrarAlerta(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Aviso");
-        alert.setHeaderText(null);
+    private void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error de validación");
+        alert.setHeaderText("Datos inválidos");
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
