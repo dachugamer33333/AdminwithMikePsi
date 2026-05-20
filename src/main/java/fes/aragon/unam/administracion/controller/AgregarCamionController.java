@@ -44,11 +44,26 @@ public class AgregarCamionController implements Initializable {
         txtFecha.setDisable(true);
 
         TextFormatter<String> matriculaFormatter = new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("\\d{0,6}")) {
-                return change;
-            }
-            return null;
+            String newText = change.getControlNewText()
+                    .toUpperCase()
+                    .replaceAll("[^A-Z0-9]", ""); // limpia lo que no sea válido
+
+            // Quita el guión para trabajar solo con los caracteres reales
+            String sinGuion = newText.replace("-", "");
+
+            if (sinGuion.length() > 6) return null;
+
+            // Inserta el guión después del 3er carácter
+            String formateado = sinGuion.length() > 3
+                    ? sinGuion.substring(0, 3) + "-" + sinGuion.substring(3)
+                    : sinGuion;
+
+            change.setText(formateado);
+            change.setRange(0, change.getControlText().length());
+            change.setCaretPosition(formateado.length());
+            change.setAnchor(formateado.length());
+
+            return change;
         });
         txtMatricula.setTextFormatter(matriculaFormatter);
 
@@ -160,10 +175,7 @@ public class AgregarCamionController implements Initializable {
             mostrarError("La matrícula no puede estar vacía.");
             return false;
         }
-        if (!matricula.matches("\\d{6}")) {
-            mostrarError("La matrícula debe tener exactamente 6 dígitos numéricos.");
-            return false;
-        }
+
         if (cmbTrabajador.getValue() == null) {
             mostrarError("Debes seleccionar un conductor.");
             return false;
