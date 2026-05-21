@@ -7,6 +7,8 @@ public class GestorZonas {
 
     private static GestorZonas instancia;
     private ArrayList<Zona> listaZonas;
+    // Guarda el ID más alto usado, nunca regresa aunque se borre una zona
+    private int ultimoId = 0;
 
     private GestorZonas() {
         this.listaZonas = leerDeArchivo();
@@ -34,6 +36,8 @@ public class GestorZonas {
     }
 
     public void agregarZona(Zona zona) {
+        // Actualizar ultimoId cuando se agrega una zona
+        if (zona.getId() > ultimoId) ultimoId = zona.getId();
         listaZonas.add(zona);
         guardarEnArchivo(listaZonas);
     }
@@ -41,6 +45,7 @@ public class GestorZonas {
     public void eliminarZona(int id) {
         listaZonas.removeIf(z -> z.getId() == id);
         guardarEnArchivo(listaZonas);
+        // ultimoId NO se toca — así el ID eliminado nunca se reutiliza
     }
 
     public void editarZona(int id, String cp, String referencia) {
@@ -69,11 +74,12 @@ public class GestorZonas {
     }
 
     public int generarId() {
-        int max = 0;
+        // Usa ultimoId para nunca reutilizar un ID aunque se haya borrado
+        int maxEnLista = 0;
         for (Zona z : listaZonas) {
-            if (z.getId() > max) max = z.getId();
+            if (z.getId() > maxEnLista) maxEnLista = z.getId();
         }
-        return max + 1;
+        return Math.max(maxEnLista, ultimoId) + 1;
     }
 
     private ArrayList<Zona> leerDeArchivo() {
@@ -92,7 +98,6 @@ public class GestorZonas {
                 linea = linea.trim();
                 if (linea.isEmpty()) continue;
 
-                // CAMBIO: separador | en lugar de ,
                 String[] partes = linea.split("\\|", 5);
                 if (partes.length == 5) {
                     int id      = Integer.parseInt(partes[0].trim());
@@ -101,6 +106,8 @@ public class GestorZonas {
                     String ref  = partes[3].trim();
                     String est  = partes[4].trim();
                     zonas.add(new Zona(id, dep, cp, ref, est));
+                    // Actualizar ultimoId al leer el archivo
+                    if (id > ultimoId) ultimoId = id;
                 }
             }
         } catch (IOException e) {
@@ -117,7 +124,6 @@ public class GestorZonas {
         File archivo = new File(carpeta, "zonas.txt");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
             for (Zona z : zonas) {
-                // CAMBIO: separador | en lugar de ,
                 bw.write(z.getId() + "|" +
                         z.getDepartamento() + "|" +
                         z.getCp() + "|" +
