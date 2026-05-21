@@ -7,48 +7,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="420.0" prefWidth="750.0"
-            xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="fes.aragon.unam.administracion.controller.ZonasController">
+<AnchorPane prefHeight="420.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fes.aragon.unam.administracion.controller.ZonasController">
 
     <children>
 
         <!-- BARRA SUPERIOR -->
-        <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="55.0" prefWidth="750.0"
-                    style="-fx-background-color: #313A46;">
+        <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="55.0" prefWidth="750.0" style="-fx-background-color: #313A46;">
             <children>
-                <Label alignment="CENTER" layoutX="0.0" layoutY="9.0"
-                       prefHeight="36.0" prefWidth="750.0"
-                       text="Zonas de Distribución - Perú" textFill="WHITE">
+                <Label alignment="CENTER" layoutX="0.0" layoutY="9.0" prefHeight="36.0" prefWidth="750.0" text="Zonas de Distribución - Perú" textFill="WHITE">
                     <font><Font name="System Bold" size="25.0" /></font>
                 </Label>
             </children>
         </AnchorPane>
 
         <!-- BOTÓN AGREGAR -->
-        <Button layoutX="560.0" layoutY="80.0"
-                prefHeight="30.0" prefWidth="110.0"
-                text="+  Agregar"
-                textFill="WHITE"
-                style="-fx-background-color: #005995; -fx-font-weight: bold; -fx-cursor: hand;"
-                onAction="#abrirAgregar">
+        <Button layoutX="560.0" layoutY="80.0" onAction="#abrirAgregar" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #005995; -fx-font-weight: bold; -fx-cursor: hand;" text="+  Agregar" textFill="WHITE">
             <font><Font name="System Bold" size="13.0" /></font>
         </Button>
 
         <!-- TABLA — anchos ajustados para que quepan todas las columnas -->
-        <TableView fx:id="tablaZonas"
-                   layoutX="75.0" layoutY="122.0"
-                   prefHeight="325.0" prefWidth="600.0">
+        <TableView fx:id="tablaZonas" layoutX="75.0" layoutY="122.0" prefHeight="325.0" prefWidth="600.0">
             <columns>
-                <TableColumn fx:id="colId"           text="ID"           prefWidth="25.0"  />
-                <TableColumn fx:id="colDepartamento" text="Departamento" prefWidth="105.0" />
-                <TableColumn fx:id="colCp"           text="Cód. Postal"  prefWidth="78.0"  />
-                <TableColumn fx:id="colReferencia"   text="Referencia"   prefWidth="180.0" />
-                <TableColumn fx:id="colEstado"       text="Estado"       prefWidth="80.0"  />
-                <TableColumn fx:id="colAcciones"     text="Acciones"     prefWidth="100.0" />
+                <TableColumn fx:id="colId" prefWidth="25.0" text="ID" />
+                <TableColumn fx:id="colDepartamento" prefWidth="105.0" text="Departamento" />
+                <TableColumn fx:id="colCp" prefWidth="78.0" text="Cód. Postal" />
+                <TableColumn fx:id="colReferencia" prefWidth="180.0" text="Referencia" />
+                <TableColumn fx:id="colEstado" prefWidth="80.0" text="Estado" />
+                <TableColumn fx:id="colAcciones" prefWidth="100.0" text="Acciones" />
             </columns>
         </TableView>
+      <Label layoutX="75.0" layoutY="457.0" style="-fx-text-fill: #7f8c8d; -fx-font-size: 11;" text=" Doble clic en una fila para ver el detalle con imagen." />
 
     </children>
 </AnchorPane>
